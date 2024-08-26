@@ -1,0 +1,90 @@
+package PokemonPackage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import enums.TiposEnum;
+
+public class Pokemon {
+    private String nome;
+    private TiposEnum[] tipo;
+    private TiposEnum[] fraqueza;
+    private int ataque;
+    private int defesa;
+    private int vida;
+
+    private static List<Pokemon> todosPokemons = new ArrayList<>();
+
+    public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, int ataque, int defesa, int vida) {
+
+        this.nome = nome;
+        this.tipo = tipo;
+        this.fraqueza = fraqueza;
+        this.vida = vida;
+        this.ataque = ataque;
+        this.defesa = defesa;
+
+        todosPokemons.add(this);
+    }
+
+    public static List<Pokemon> getTodosPokemons() {
+        return todosPokemons;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setTipo(TiposEnum[] tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setFraqueza(TiposEnum[] fraqueza) {
+        this.fraqueza = fraqueza;
+    }
+
+    public void setAtaque(int ataque) {
+        this.ataque = ataque;
+    }
+
+    public void setDefesa(int defesa) {
+        this.defesa = defesa;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public TiposEnum[] getTipo() {
+        return tipo;
+    }
+
+    public TiposEnum[] getFraqueza() {
+        return fraqueza;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefesa() {
+        return defesa;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    @Override
+    public String toString() {
+        return "Pokemon {nome = '" + nome + "', tipo = " + Arrays.toString(tipo) + "', fraqueza = "
+                + Arrays.toString(fraqueza) + "', ataque = " + ataque + "', defesa = " + defesa + "', vida= " + vida
+                + "}";
+    }
+
+}
