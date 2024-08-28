@@ -13,10 +13,12 @@ public class Pokemon {
     private int ataque;
     private int defesa;
     private int vida;
+    private int velocidade;
+    private Tecnicas[] tecnicas; 
 
     private static List<Pokemon> todosPokemons = new ArrayList<>();
 
-    public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, int ataque, int defesa, int vida) {
+    public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, int ataque, int defesa, int vida, int velocidade, Tecnicas[] tecnicas) {
 
         this.nome = nome;
         this.tipo = tipo;
@@ -24,6 +26,8 @@ public class Pokemon {
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
+        this.velocidade = velocidade;
+        this.tecnicas = new Tecnicas[4];
 
         todosPokemons.add(this);
     }
@@ -56,6 +60,14 @@ public class Pokemon {
         this.vida = vida;
     }
 
+    public void setVelocidade(int velocidade) {
+        this.velocidade = velocidade;
+    }
+
+    public Tecnicas[] setTecnicas(Tecnicas[] tecnicas){
+        return tecnicas;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -78,6 +90,14 @@ public class Pokemon {
 
     public int getVida() {
         return vida;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
+
+    public Tecnicas[] getTecnicas(){
+        return tecnicas;
     }
 
     @Override

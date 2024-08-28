@@ -19,5 +19,49 @@ public class App {
         player1.escolherEquipa();
         player2.escolherEquipa();
 
+        JogoMoeda jogar = new JogoMoeda();
+
+        int vencedor = jogar.jogarJogoMoeda(player1, player2);
+
+        Player primeiroEscolher;
+        Player segundoEscolher;
+
+        if (vencedor == 0) {
+
+            System.out.println(player1.getNome()
+                    + " ganhou o jogo da moeda, deseja escolher o primeiro pokemon a entrar em combate? Por favor digite 'SIM' ou 'NAO");
+            String escolha = scanner.nextLine().trim().toLowerCase();
+
+            if (escolha.equals("sim")) {
+                primeiroEscolher = player1;
+                segundoEscolher = player2;
+            } else {
+                primeiroEscolher = player2;
+                segundoEscolher = player1;
+            }
+
+        } else {
+            System.out.println(player2.getNome()
+                    + " ganhou o jogo da moeda, deseja escolher o primeiro pokemon a entrar em combate? Por favor digite 'SIM' ou 'NAO");
+            String escolha = scanner.nextLine().trim().toLowerCase();
+
+            if (escolha.equals("sim")) {
+                primeiroEscolher = player2;
+                segundoEscolher = player1;
+            } else {
+                primeiroEscolher = player1;
+                segundoEscolher = player2;
+            }
+        }
+
+        Combate combate = new Combate();
+
+        System.out.println(primeiroEscolher.getNome() + " escolherá o primeiro Pokémon a entrar em combate.");
+        combate.escolherPokemon(primeiroEscolher);
+
+        System.out.println(segundoEscolher.getNome() + " escolherá o segundo Pokémon a entrar em combate.");
+        combate.escolherPokemon(segundoEscolher);
+
+        scanner.close();
     }
 }
