@@ -55,12 +55,14 @@ public class App {
         }
 
         Combate combate = new Combate();
-
+/* 
         System.out.println(primeiroEscolher.getNome() + " escolherá o primeiro Pokémon a entrar em combate.");
         combate.escolherPokemon(primeiroEscolher);
 
         System.out.println(segundoEscolher.getNome() + " escolherá o segundo Pokémon a entrar em combate.");
         combate.escolherPokemon(segundoEscolher);
+*/
+        combate.iniciarCombate(primeiroEscolher, segundoEscolher);
 
         scanner.close();
     }

@@ -5,26 +5,26 @@ import enums.TiposEnum;
 public class PokemonDemo {
         public void criarPokemons() {
 
-                Tecnicas flamethrower = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.FIRE });
-                Tecnicas thunderbolt = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.ELECTRIC });
-                Tecnicas surf = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.WATER });
-                Tecnicas psychic = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.PSYCHIC });
-                Tecnicas earthquake = new Tecnicas(100, 100, new TiposEnum[] { TiposEnum.GROUND });
-                Tecnicas iceBeam = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.ICE });
-                Tecnicas sludgeBomb = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.POISON });
-                Tecnicas hyperBeam = new Tecnicas(150, 90, new TiposEnum[] { TiposEnum.NORMAL });
-                Tecnicas rockSlide = new Tecnicas(75, 90, new TiposEnum[] { TiposEnum.ROCK });
-                Tecnicas shadowBall = new Tecnicas(80, 100, new TiposEnum[] { TiposEnum.GHOST });
-                Tecnicas dragonClaw = new Tecnicas(80, 100, new TiposEnum[] { TiposEnum.DRAGON });
-                Tecnicas darkPulse = new Tecnicas(80, 100, new TiposEnum[] { TiposEnum.DARK });
-                Tecnicas dazzlingGleam = new Tecnicas(80, 100, new TiposEnum[] { TiposEnum.FAIRY });
-                Tecnicas aerialAce = new Tecnicas(60, 100, new TiposEnum[] { TiposEnum.FLYING });
-                Tecnicas brickBreak = new Tecnicas(75, 100, new TiposEnum[] { TiposEnum.FIGHTING });
-                Tecnicas bugBuzz = new Tecnicas(90, 100, new TiposEnum[] { TiposEnum.BUG });
-                Tecnicas ironTail = new Tecnicas(100, 75, new TiposEnum[] { TiposEnum.STEEL });
-                Tecnicas quickAttack = new Tecnicas(70, 100, new TiposEnum[] { TiposEnum.NORMAL });
-                Tecnicas dynamicPunch = new Tecnicas(100, 50, new TiposEnum[] { TiposEnum.FIGHTING });
-                Tecnicas slash = new Tecnicas(70, 100, new TiposEnum[] { TiposEnum.NORMAL });
+                Tecnicas flamethrower = new Tecnicas("flamethrower", 90, 100, new TiposEnum[] { TiposEnum.FIRE });
+                Tecnicas thunderbolt = new Tecnicas("thunderbolt", 90, 100, new TiposEnum[] { TiposEnum.ELECTRIC });
+                Tecnicas surf = new Tecnicas("surf", 90, 100, new TiposEnum[] { TiposEnum.WATER });
+                Tecnicas psychic = new Tecnicas("psychic", 90, 100, new TiposEnum[] { TiposEnum.PSYCHIC });
+                Tecnicas earthquake = new Tecnicas("earthquake", 100, 100, new TiposEnum[] { TiposEnum.GROUND });
+                Tecnicas iceBeam = new Tecnicas("iceBeam", 90, 100, new TiposEnum[] { TiposEnum.ICE });
+                Tecnicas sludgeBomb = new Tecnicas("sludgeBomb", 90, 100, new TiposEnum[] { TiposEnum.POISON });
+                Tecnicas hyperBeam = new Tecnicas("hyperBeam", 150, 90, new TiposEnum[] { TiposEnum.NORMAL });
+                Tecnicas rockSlide = new Tecnicas("rockSlide", 75, 90, new TiposEnum[] { TiposEnum.ROCK });
+                Tecnicas shadowBall = new Tecnicas("shadowBall", 80, 100, new TiposEnum[] { TiposEnum.GHOST });
+                Tecnicas dragonClaw = new Tecnicas("dragonClaw", 80, 100, new TiposEnum[] { TiposEnum.DRAGON });
+                Tecnicas darkPulse = new Tecnicas("darkPulse", 80, 100, new TiposEnum[] { TiposEnum.DARK });
+                Tecnicas dazzlingGleam = new Tecnicas("dazzlingGleam", 80, 100, new TiposEnum[] { TiposEnum.FAIRY });
+                Tecnicas aerialAce = new Tecnicas("aerialAce", 60, 100, new TiposEnum[] { TiposEnum.FLYING });
+                Tecnicas brickBreak = new Tecnicas("brickBreak", 75, 100, new TiposEnum[] { TiposEnum.FIGHTING });
+                Tecnicas bugBuzz = new Tecnicas("bugBuzz", 90, 100, new TiposEnum[] { TiposEnum.BUG });
+                Tecnicas ironTail = new Tecnicas("ironTail", 100, 75, new TiposEnum[] { TiposEnum.STEEL });
+                Tecnicas quickAttack = new Tecnicas("quickAttack", 70, 100, new TiposEnum[] { TiposEnum.NORMAL });
+                Tecnicas dynamicPunch = new Tecnicas("dynamicPunch", 100, 50, new TiposEnum[] { TiposEnum.FIGHTING });
+                Tecnicas slash = new Tecnicas("slash", 70, 100, new TiposEnum[] { TiposEnum.NORMAL });
 
                 Pokemon bulbasaur = new Pokemon("Bulbasaur",
                                 new TiposEnum[] { TiposEnum.GRASS, TiposEnum.POISON },

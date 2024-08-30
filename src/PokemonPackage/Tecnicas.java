@@ -4,16 +4,22 @@ import enums.TiposEnum;
 
 public class Tecnicas {
 
+    private String nome;
     private int dano;
     private int probabilidadeAcerto;
     private TiposEnum[] tipo;
 
-    public Tecnicas(int dano, int probabilidadeAcerto, TiposEnum[] tipo) {
+    public Tecnicas(String nome, int dano, int probabilidadeAcerto, TiposEnum[] tipo) {
 
+        this.nome = nome;
         this.dano = dano;
         this.probabilidadeAcerto = probabilidadeAcerto;
         this.tipo = tipo;
 
+    }
+
+    public void setnome(String nome) {
+        this.nome = nome;
     }
 
     public void setDano(int dano) {
@@ -25,9 +31,12 @@ public class Tecnicas {
 
     }
 
-    
     public void setTipo(TiposEnum[] tipo) {
         this.tipo = tipo;
+    }
+
+    public String getNome(){
+        return nome;
     }
 
     public int getDano() {
@@ -41,5 +50,7 @@ public class Tecnicas {
     public TiposEnum[] getTipo() {
         return tipo;
     }
+
+ 
 
 }
