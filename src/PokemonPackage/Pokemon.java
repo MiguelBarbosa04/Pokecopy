@@ -27,7 +27,11 @@ public class Pokemon {
         this.ataque = ataque;
         this.defesa = defesa;
         this.velocidade = velocidade;
-        this.tecnicas = new Tecnicas[4];
+
+        if (tecnicas.length != 2) {
+            throw new IllegalArgumentException("Um Pokémon deve ter exatamente 2 técnicas!");
+        }
+        this.tecnicas = Arrays.copyOf(tecnicas, 2);
 
         todosPokemons.add(this);
     }
@@ -64,8 +68,8 @@ public class Pokemon {
         this.velocidade = velocidade;
     }
 
-    public Tecnicas[] setTecnicas(Tecnicas[] tecnicas){
-        return tecnicas;
+    public void setTecnicas(Tecnicas[] tecnicas){
+        this.tecnicas = tecnicas;
     }
 
     public String getNome() {
@@ -96,8 +100,8 @@ public class Pokemon {
         return velocidade;
     }
 
-    public Tecnicas[] getTecnicas(){
-        return tecnicas;
+  public Tecnicas[] getTecnicas() {
+        return Arrays.copyOf(tecnicas, 2);
     }
 
     @Override

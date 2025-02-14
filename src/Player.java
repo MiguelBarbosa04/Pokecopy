@@ -58,14 +58,15 @@ public class Player {
         System.out.println("Escolha 6 Pokémons para a equipa de " + nome + ":");
 
         int i = 0;
-        while (i < equipa.length) {
+   
+        while (i < 1) {
             System.out.print("Escolha o Pokémon " + (i + 1) + ": ");
             String pokemonEscolhido = scanner.nextLine();
 
             boolean pokemonEncontrado = false;
 
             for (Pokemon pokemon : pokemonsDisponiveis) {
-                if (pokemon.getNome().equals(pokemonEscolhido)) {
+                if (pokemon.getNome().equalsIgnoreCase(pokemonEscolhido)) {
                     equipa[i] = pokemon;
                     pokemonsDisponiveis.remove(pokemon);
                     i++;

@@ -1,5 +1,7 @@
 package PokemonPackage;
 
+import java.util.Arrays;
+
 import enums.TiposEnum;
 
 public class Tecnicas {
@@ -51,6 +53,16 @@ public class Tecnicas {
         return tipo;
     }
 
- 
+
+    @Override
+    public String toString() {
+        return "Tecnica { " +
+               "Nome = '" + nome + '\'' +
+               ", Dano = " + dano +
+               ", Probabilidade de Acerto = " + probabilidadeAcerto + "%" +
+               ", Tipo(s) = " + Arrays.toString(tipo) +
+               " }";
+    }
+    
 
 }
