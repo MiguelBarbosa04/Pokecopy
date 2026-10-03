@@ -10,23 +10,31 @@ public class Pokemon {
     private String nome;
     private TiposEnum[] tipo;
     private TiposEnum[] fraqueza;
+    private TiposEnum[] resistencia;
+    private TiposEnum[] imunidade;
     private int ataque;
     private int defesa;
     private int vida;
     private int velocidade;
-    private Tecnicas[] tecnicas; 
+    private Tecnicas[] tecnicas;
+
+    private int vidaMaxima;
 
     private static List<Pokemon> todosPokemons = new ArrayList<>();
 
-    public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, int ataque, int defesa, int vida, int velocidade, Tecnicas[] tecnicas) {
+    public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, TiposEnum[] resistencia, TiposEnum[] imunidade,
+            int ataque, int defesa, int vida, int velocidade, Tecnicas[] tecnicas) {
 
         this.nome = nome;
         this.tipo = tipo;
         this.fraqueza = fraqueza;
+        this.resistencia = resistencia;
+        this.imunidade = imunidade;
         this.vida = vida;
         this.ataque = ataque;
         this.defesa = defesa;
         this.velocidade = velocidade;
+        this.vidaMaxima = vida;
 
         if (tecnicas.length != 2) {
             throw new IllegalArgumentException("Um Pokémon deve ter exatamente 2 técnicas!");
@@ -52,6 +60,14 @@ public class Pokemon {
         this.fraqueza = fraqueza;
     }
 
+    public void setResistencia(TiposEnum[] resistencia) {
+        this.resistencia = resistencia;
+    }
+
+    public void setImunidade(TiposEnum[] imunidade) {
+        this.imunidade = imunidade;
+    }
+
     public void setAtaque(int ataque) {
         this.ataque = ataque;
     }
@@ -68,7 +84,7 @@ public class Pokemon {
         this.velocidade = velocidade;
     }
 
-    public void setTecnicas(Tecnicas[] tecnicas){
+    public void setTecnicas(Tecnicas[] tecnicas) {
         this.tecnicas = tecnicas;
     }
 
@@ -82,6 +98,14 @@ public class Pokemon {
 
     public TiposEnum[] getFraqueza() {
         return fraqueza;
+    }
+
+    public TiposEnum[] getResistencia() {
+        return resistencia;
+    }
+
+    public TiposEnum[] getImunidade() {
+        return imunidade;
     }
 
     public int getAtaque() {
@@ -100,14 +124,19 @@ public class Pokemon {
         return velocidade;
     }
 
-  public Tecnicas[] getTecnicas() {
+    public Tecnicas[] getTecnicas() {
         return Arrays.copyOf(tecnicas, 2);
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
     }
 
     @Override
     public String toString() {
         return "Pokemon {nome = '" + nome + "', tipo = " + Arrays.toString(tipo) + "', fraqueza = "
-                + Arrays.toString(fraqueza) + "', ataque = " + ataque + "', defesa = " + defesa + "', vida= " + vida
+                + Arrays.toString(fraqueza) + "', resistencia = " + Arrays.toString(resistencia) + "', imunidade = "
+                + Arrays.toString(imunidade) + "', ataque = " + ataque + "', defesa = " + defesa + "', vida= " + vida
                 + "}";
     }
 
@@ -116,7 +145,7 @@ public class Pokemon {
         if (this.vida < 0) {
             this.vida = 0;
         }
-        
+
     }
 
 }

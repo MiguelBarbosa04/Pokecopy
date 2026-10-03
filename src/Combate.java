@@ -7,6 +7,37 @@ import enums.TiposEnum;
 public class Combate {
 
     private final Scanner scanner;
+    private static final String RESET = "\u001B[0m";
+    private static final String VERDE = "\u001B[32m";
+    private static final String AMARELO = "\u001B[33m";
+    private static final String VERMELHO = "\u001B[31m";
+
+    private String barraVida(Pokemon p) {
+        int tamanho = 20;
+        int max = Math.max(1, p.getVidaMaxima());
+        int vida = Math.max(0, p.getVida());
+        double percentagem = (double) vida / max;
+
+        // arredonda para cima, com 1 de vida ainda aparece 1 bloco
+        int cheios = Math.min(tamanho, (int) Math.ceil(percentagem * tamanho));
+
+        String cor = percentagem > 0.5 ? VERDE : percentagem > 0.2 ? AMARELO : VERMELHO;
+        return cor + "█".repeat(cheios) + RESET + "░".repeat(tamanho - cheios);
+    }
+
+    private String linhaPokemon(Pokemon p) {
+        return String.format(" %-12s [%s] %3d/%d",
+                p.getNome(), barraVida(p), Math.max(0, p.getVida()), p.getVidaMaxima());
+    }
+
+    public void mostrarHPAdversarios(Pokemon a, Pokemon b) {
+        String linha = "═".repeat(40);
+        System.out.println(linha);
+        System.out.println(linhaPokemon(a));
+        System.out.println("\nVS\n");
+        System.out.println(linhaPokemon(b));
+        System.out.println(linha);
+    }
 
     // Para usar o mesmo Scanner do main
     public Combate(Scanner scanner) {
@@ -70,8 +101,12 @@ public class Combate {
 
         Pokemon lutador1 = escolherPokemon(p1);
         Pokemon lutador2 = escolherPokemon(p2);
+        int ronda = 1;
 
         while (temPokemonVivo(p1) && temPokemonVivo(p2)) {
+
+            System.out.println("\n──────── RONDA " + ronda++ + " ────────");
+            mostrarHPAdversarios(lutador1, lutador2);
 
             // cada jogador escolhe o seu ataque
             System.out.println("\nÉ o turno de " + p1.getNome());
@@ -84,14 +119,20 @@ public class Combate {
             executarRonda(lutador1, t1, lutador2, t2);
 
             // só troca quem perdeu o Pokémon
-            if (!estaVivo(lutador1) && temPokemonVivo(p1)) {
+            if (!estaVivo(lutador1)) {
                 System.out.println("\n" + lutador1.getNome() + " desmaiou!");
-                lutador1 = escolherPokemon(p1);
+                if (temPokemonVivo(p1)) {
+                    lutador1 = escolherPokemon(p1);
+                }
             }
-            if (!estaVivo(lutador2) && temPokemonVivo(p2)) {
+
+            if (!estaVivo(lutador2)) {
                 System.out.println("\n" + lutador2.getNome() + " desmaiou!");
-                lutador2 = escolherPokemon(p2);
+                if (temPokemonVivo(p2)) {
+                    lutador2 = escolherPokemon(p2);
+                }
             }
+
         }
 
         Player vencedor = temPokemonVivo(p1) ? p1 : p2;
@@ -155,6 +196,26 @@ public class Combate {
         }
     }
 
+    // Devolve true se o tipo da técnica estiver na lista (fraquezas,resistências ou
+    // imunidades).
+    private boolean tecnicaCorrespondeA(TiposEnum[] lista, Tecnicas tecnica) {
+        if (lista == null) {
+            return false;
+        }
+        for (TiposEnum tipoLista : lista) {
+            for (TiposEnum tipoTecnica : tecnica.getTipo()) {
+                if (tipoLista == tipoTecnica) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private double calcularDanoBase(Pokemon atacante, Tecnicas tecnica, Pokemon defensor) {
+        return (double) atacante.getAtaque() * tecnica.getDano() / Math.max(1, defensor.getDefesa());
+    }
+
     private void atacar(Pokemon atacante, Tecnicas tecnica, Pokemon defensor) {
 
         if (tecnica == null) {
@@ -162,30 +223,34 @@ public class Combate {
             return;
         }
 
-        int dano = Math.max(1, atacante.getAtaque() * tecnica.getDano() / Math.max(1, defensor.getDefesa()));
+        boolean imune = tecnicaCorrespondeA(defensor.getImunidade(), tecnica);
+        boolean superEficaz = tecnicaCorrespondeA(defensor.getFraqueza(), tecnica);
+        boolean resistido = tecnicaCorrespondeA(defensor.getResistencia(), tecnica);
 
-        boolean vantagemTecnica = false;
+        double dano = calcularDanoBase(atacante, tecnica, defensor);
+        if (superEficaz)
+            dano *= 1.5;
+        if (resistido)
+            dano *= 0.5;
 
-        for (int i = 0; i < defensor.getFraqueza().length; i++) {
-            for (int j = 0; j < tecnica.getTipo().length; j++) {
-                if (defensor.getFraqueza()[i] == tecnica.getTipo()[j]) {
-                    dano *= 1.5;
-                    vantagemTecnica = true;
-                }
-            }
-        }
-
-        defensor.receberDano(dano);
+        int danoFinal = imune ? 0 : Math.max(1, (int) dano);
+        defensor.receberDano(danoFinal);
 
         System.out.println(atacante.getNome() + " usou " + tecnica.getNome()
-                + " e causou " + dano + " de dano a " + defensor.getNome() + "!");
-
-        if (vantagemTecnica) {
-            System.out.println("É super eficaz!");
-        }
-
-        System.out.println(defensor.getNome() + " agora tem " + defensor.getVida());
+                + " e causou " + danoFinal + " de dano a " + defensor.getNome() + "!");
+        mostrarEfetividade(imune, superEficaz, resistido);
+        System.out.println(defensor.getNome() + " agora tem " + defensor.getVida() + " de vida.");
 
     }
 
+    private void mostrarEfetividade(boolean imune, boolean superEficaz, boolean resistido) {
+        if (imune) {
+            System.out.println("Não teve efeito...");
+            return; // imune então ignora o resto
+        }
+        if (superEficaz)
+            System.out.println("É super eficaz!");
+        if (resistido)
+            System.out.println("Não é muito eficaz...");
+    }
 }
