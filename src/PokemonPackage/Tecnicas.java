@@ -1,7 +1,5 @@
 package PokemonPackage;
-
 import java.util.Arrays;
-
 import enums.TiposEnum;
 
 public class Tecnicas {

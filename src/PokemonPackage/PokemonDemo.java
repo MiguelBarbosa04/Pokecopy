@@ -29,121 +29,121 @@ public class PokemonDemo {
                 Pokemon bulbasaur = new Pokemon("Bulbasaur",
                                 new TiposEnum[] { TiposEnum.GRASS, TiposEnum.POISON },
                                 new TiposEnum[] { TiposEnum.FIRE, TiposEnum.ICE, TiposEnum.FLYING, TiposEnum.PSYCHIC },
-                                55, 40, 35, 20,
+                                55, 40, 350, 20,
                                 new Tecnicas[] { sludgeBomb, earthquake });
 
                 Pokemon charmander = new Pokemon("Charmander",
                                 new TiposEnum[] { TiposEnum.FIRE },
                                 new TiposEnum[] { TiposEnum.WATER, TiposEnum.ROCK, TiposEnum.GROUND },
-                                60, 35, 39, 30,
+                                60, 35, 390, 30,
                                 new Tecnicas[] { flamethrower, dragonClaw });
 
                 Pokemon squirtle = new Pokemon("Squirtle",
                                 new TiposEnum[] { TiposEnum.WATER },
                                 new TiposEnum[] { TiposEnum.ELECTRIC, TiposEnum.GRASS },
-                                50, 65, 44, 24,
+                                50, 65, 440, 24,
                                 new Tecnicas[] { surf, iceBeam });
 
                 Pokemon pikachu = new Pokemon("Pikachu",
                                 new TiposEnum[] { TiposEnum.ELECTRIC },
                                 new TiposEnum[] { TiposEnum.GROUND },
-                                55, 40, 35, 50,
+                                55, 40, 350, 50,
                                 new Tecnicas[] { thunderbolt, quickAttack });
 
                 Pokemon jigglypuff = new Pokemon("Jigglypuff",
                                 new TiposEnum[] { TiposEnum.NORMAL, TiposEnum.FAIRY },
                                 new TiposEnum[] { TiposEnum.POISON, TiposEnum.STEEL },
-                                45, 20, 115, 32,
+                                45, 20, 315, 32,
                                 new Tecnicas[] { hyperBeam, dazzlingGleam });
 
                 Pokemon geodude = new Pokemon("Geodude",
                                 new TiposEnum[] { TiposEnum.ROCK, TiposEnum.GROUND },
                                 new TiposEnum[] { TiposEnum.WATER, TiposEnum.GRASS, TiposEnum.ICE, TiposEnum.FIGHTING,
                                                 TiposEnum.GROUND, TiposEnum.STEEL },
-                                80, 100, 40, 19,
+                                80, 100, 400, 19,
                                 new Tecnicas[] { rockSlide, earthquake });
 
                 Pokemon gastly = new Pokemon("Gastly",
                                 new TiposEnum[] { TiposEnum.GHOST, TiposEnum.POISON },
                                 new TiposEnum[] { TiposEnum.GROUND, TiposEnum.PSYCHIC, TiposEnum.GHOST },
-                                35, 30, 30, 31,
+                                35, 30, 300, 31,
                                 new Tecnicas[] { shadowBall, sludgeBomb });
 
                 Pokemon onix = new Pokemon("Onix",
                                 new TiposEnum[] { TiposEnum.ROCK, TiposEnum.GROUND },
                                 new TiposEnum[] { TiposEnum.WATER, TiposEnum.GRASS, TiposEnum.ICE, TiposEnum.FIGHTING,
                                                 TiposEnum.GROUND, TiposEnum.STEEL },
-                                45, 160, 35, 20,
+                                45, 160, 350, 20,
                                 new Tecnicas[] { rockSlide, ironTail });
 
                 Pokemon alakazam = new Pokemon("Alakazam",
                                 new TiposEnum[] { TiposEnum.PSYCHIC },
                                 new TiposEnum[] { TiposEnum.BUG, TiposEnum.GHOST, TiposEnum.DARK },
-                                120, 45, 55, 30,
+                                120, 45, 550, 30,
                                 new Tecnicas[] { psychic, shadowBall });
 
                 Pokemon machamp = new Pokemon("Machamp",
                                 new TiposEnum[] { TiposEnum.FIGHTING },
                                 new TiposEnum[] { TiposEnum.FLYING, TiposEnum.PSYCHIC, TiposEnum.FAIRY },
-                                100, 85, 90, 36,
+                                100, 85, 400, 36,
                                 new Tecnicas[] { brickBreak, dynamicPunch });
 
                 Pokemon gyarados = new Pokemon("Gyarados",
                                 new TiposEnum[] { TiposEnum.WATER, TiposEnum.FLYING },
                                 new TiposEnum[] { TiposEnum.ELECTRIC, TiposEnum.ROCK },
-                                125, 79, 95, 27,
+                                125, 79, 450, 27,
                                 new Tecnicas[] { surf, dragonClaw });
 
                 Pokemon dragonite = new Pokemon("Dragonite",
                                 new TiposEnum[] { TiposEnum.DRAGON, TiposEnum.FLYING },
                                 new TiposEnum[] { TiposEnum.ICE, TiposEnum.DRAGON, TiposEnum.FAIRY },
-                                134, 95, 91, 45,
+                                134, 95, 550, 45,
                                 new Tecnicas[] { dragonClaw, hyperBeam });
 
                 Pokemon meowth = new Pokemon("Meowth",
                                 new TiposEnum[] { TiposEnum.NORMAL },
                                 new TiposEnum[] { TiposEnum.FIGHTING },
-                                45, 35, 40, 39,
+                                45, 35, 400, 39,
                                 new Tecnicas[] { slash, ironTail });
 
                 Pokemon psyduck = new Pokemon("Psyduck",
                                 new TiposEnum[] { TiposEnum.WATER },
                                 new TiposEnum[] { TiposEnum.ELECTRIC, TiposEnum.GRASS },
-                                52, 48, 50, 28,
+                                52, 48, 500, 28,
                                 new Tecnicas[] { surf, psychic });
 
                 Pokemon machop = new Pokemon("Machop",
                                 new TiposEnum[] { TiposEnum.FIGHTING },
                                 new TiposEnum[] { TiposEnum.FLYING, TiposEnum.PSYCHIC, TiposEnum.FAIRY },
-                                70, 50, 70, 30,
+                                70, 50, 700, 30,
                                 new Tecnicas[] { brickBreak, rockSlide });
 
                 Pokemon poliwag = new Pokemon("Poliwag",
                                 new TiposEnum[] { TiposEnum.WATER },
                                 new TiposEnum[] { TiposEnum.ELECTRIC, TiposEnum.GRASS },
-                                50, 40, 40, 30,
+                                50, 40, 400, 30,
                                 new Tecnicas[] { surf, iceBeam });
 
                 Pokemon growlithe = new Pokemon("Growlithe",
                                 new TiposEnum[] { TiposEnum.FIRE },
                                 new TiposEnum[] { TiposEnum.WATER, TiposEnum.ROCK, TiposEnum.GROUND },
-                                70, 45, 55, 40,
+                                70, 45, 550, 40,
                                 new Tecnicas[] { flamethrower, quickAttack });
 
                 Pokemon seel = new Pokemon("Seel",
                                 new TiposEnum[] { TiposEnum.WATER },
                                 new TiposEnum[] { TiposEnum.ELECTRIC, TiposEnum.GRASS },
-                                65, 55, 65, 23,
+                                65, 55, 650, 23,
                                 new Tecnicas[] { surf, iceBeam });
 
                 Pokemon omanyte = new Pokemon("Omanyte",
                                 new TiposEnum[] { TiposEnum.ROCK, TiposEnum.WATER },
-                                new TiposEnum[] { TiposEnum.GRASS, TiposEnum.ELECTRIC }, 40, 100, 70, 13,
+                                new TiposEnum[] { TiposEnum.GRASS, TiposEnum.ELECTRIC }, 40, 100, 600, 13,
                                 new Tecnicas[] { surf, rockSlide });
 
                 Pokemon kabuto = new Pokemon("Kabuto",
                                 new TiposEnum[] { TiposEnum.ROCK, TiposEnum.BUG },
-                                new TiposEnum[] { TiposEnum.WATER, TiposEnum.GRASS, TiposEnum.FIGHTING }, 40, 80, 60,
+                                new TiposEnum[] { TiposEnum.WATER, TiposEnum.GRASS, TiposEnum.FIGHTING }, 40, 80, 600,
                                 18,
                                 new Tecnicas[] { slash, ironTail });
 

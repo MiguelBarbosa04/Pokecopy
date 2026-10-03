@@ -2,140 +2,189 @@ import java.util.Scanner;
 
 import PokemonPackage.Pokemon;
 import PokemonPackage.Tecnicas;
+import enums.TiposEnum;
 
 public class Combate {
 
+    private final Scanner scanner;
+
+    // Para usar o mesmo Scanner do main
+    public Combate(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    private int lerOpcao(int min, int max) {
+        while (true) {
+            String linha = scanner.nextLine().trim();
+            try {
+                int valor = Integer.parseInt(linha);
+                if (valor >= min && valor <= max) {
+                    return valor;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número.");
+            }
+            System.out.println("Tem de escolher um número entre " + min + " e " + max + ".");
+        }
+    }
+
+    private boolean estaVivo(Pokemon p) {
+        return p != null && p.getVida() > 0;
+    }
+
+    private boolean temPokemonVivo(Player p) {
+        for (Pokemon pk : p.getEquipa()) {
+            if (estaVivo(pk)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Pokemon escolherPokemon(Player player) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Escolha o seu pokemon! ");
+        System.out.println(player.getNome() + ", escolha o seu pokemon! ");
 
         for (int i = 0; i < player.getEquipa().length; i++) {
-
-            System.out.println((i + 1) + "." + player.getPokemon(i));
+            Pokemon pk = player.getPokemon(i);
+            String estado = estaVivo(pk) ? "" : "  [DESMAIADO]";
+            System.out.println((i + 1) + "." + pk + estado);
         }
 
-        int escolha = -1;
+        Pokemon pokemonEscolhido;
         do {
+            int escolha = lerOpcao(1, player.getEquipa().length);
+            pokemonEscolhido = player.getPokemon(escolha - 1);
 
-            if (scanner.hasNextInt()) {
-                escolha = scanner.nextInt();
-            } else {
-                scanner.nextLine();
-                System.out.println("Tem de escolher um número");
+            if (!estaVivo(pokemonEscolhido)) {
+                System.out.println("Esse Pokémon não pode lutar. Escolha outro.");
+                pokemonEscolhido = null;
             }
-        } while (escolha > player.getEquipa().length || escolha <= 0);
+        } while (pokemonEscolhido == null);
 
-        Pokemon pokemonEscolhido = player.getPokemon(escolha - 1);
         System.out.println("Escolheu " + pokemonEscolhido.getNome());
-
         return pokemonEscolhido;
     }
 
-    public void iniciarCombate(Player primeiroEscolher, Player segundoEscolher) {
+    public void iniciarCombate(Player p1, Player p2) {
 
-        do {
+        Pokemon lutador1 = escolherPokemon(p1);
+        Pokemon lutador2 = escolherPokemon(p2);
 
-            Pokemon pokemonLutar = escolherPokemon(primeiroEscolher);
-            Pokemon pokemonLutar2 = escolherPokemon(segundoEscolher);
+        while (temPokemonVivo(p1) && temPokemonVivo(p2)) {
 
-            while (pokemonLutar.getVida() > 0 && pokemonLutar2.getVida() > 0) {
-                System.out.println("É o seu turno " + primeiroEscolher.getNome());
+            // cada jogador escolhe o seu ataque
+            System.out.println("\nÉ o turno de " + p1.getNome());
+            Tecnicas t1 = escolherTecnica(lutador1);
 
-                executarTurno(pokemonLutar, pokemonLutar2);
+            System.out.println("\nÉ o turno de " + p2.getNome());
+            Tecnicas t2 = escolherTecnica(lutador2);
 
+            System.out.println();
+            executarRonda(lutador1, t1, lutador2, t2);
+
+            // só troca quem perdeu o Pokémon
+            if (!estaVivo(lutador1) && temPokemonVivo(p1)) {
+                System.out.println("\n" + lutador1.getNome() + " desmaiou!");
+                lutador1 = escolherPokemon(p1);
             }
-        } while (primeiroEscolher.getEquipa() != null && segundoEscolher.getEquipa() != null);
-
-        if (primeiroEscolher.getEquipa() == null) {
-            System.out.println("Parabéns " + primeiroEscolher.getNome() + " ganhou o combate");
-        } else {
-            System.out.println("Parabéns " + segundoEscolher.getNome() + " ganhou o combate");
-
+            if (!estaVivo(lutador2) && temPokemonVivo(p2)) {
+                System.out.println("\n" + lutador2.getNome() + " desmaiou!");
+                lutador2 = escolherPokemon(p2);
+            }
         }
 
+        Player vencedor = temPokemonVivo(p1) ? p1 : p2;
+        System.out.println("\nParabéns " + vencedor.getNome() + " ganhou o combate!");
     }
 
-    public void executarTurno(Pokemon pokemon1, Pokemon pokemon2) {
-        int acao = -1;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Qual é a sua ação? ");
-        System.out.println("--> 1 - ATACAR <--");
-    
-        do {
-            if (scanner.hasNextInt()) {
-                acao = scanner.nextInt();
+    // Mostra as técnicas do Pokémon e devolve a escolhida
+    private Tecnicas escolherTecnica(Pokemon pokemon) {
+
+        Tecnicas[] tecnicas = pokemon.getTecnicas();
+
+        boolean temTecnica = false;
+        if (tecnicas != null) {
+            for (Tecnicas t : tecnicas) {
+                if (t != null) {
+                    temTecnica = true;
+                    break;
+                }
+            }
+        }
+
+        if (!temTecnica) {
+            System.out.println("O Pokémon " + pokemon.getNome() + " não tem técnicas atribuídas.");
+            return null;
+        }
+
+        System.out.println(pokemon.getNome() + " - escolha um ataque: ");
+        for (int i = 0; i < tecnicas.length; i++) {
+            if (tecnicas[i] != null) {
+                System.out.println((i + 1) + ". " + tecnicas[i].getNome());
             } else {
-                scanner.nextLine();
-                System.out.println("Tem de escolher um número");
+                System.out.println((i + 1) + ". [Vazio]");
             }
-        } while (acao > 2 || acao <= 0);
-    
-        switch (acao) {
-            case 1:
-                if (pokemon1.getTecnicas() == null) {
-                    System.out.println("Erro: O Pokémon " + pokemon1.getNome() + " não tem técnicas atribuídas.");
-                    return;
-                }
-    
-                System.out.println("Escolha um ataque: ");
-                for (int i = 0; i < pokemon1.getTecnicas().length; i++) {
-                    if (pokemon1.getTecnicas()[i] != null) {
-                        System.out.println((i + 1) + ". " + pokemon1.getTecnicas()[i].getNome());
-                    } else {
-                        System.out.println((i + 1) + ". [Vazio]");
-                    }
-                }
-    
-                int escolhaTecnica = scanner.nextInt();
-                
-                if (escolhaTecnica < 1 || escolhaTecnica > pokemon1.getTecnicas().length || pokemon1.getTecnicas()[escolhaTecnica - 1] == null) {
-                    System.out.println("Erro: Escolha inválida.");
-                    return;
-                }
-    
-                Tecnicas tecnicaEscolhida = pokemon1.getTecnicas()[escolhaTecnica - 1];
-    
-                if (tecnicaEscolhida == null) {
-                    System.out.println("Erro: Nenhuma técnica foi escolhida.");
-                    return;
-                }
-    
-                usarTecnica(tecnicaEscolhida, pokemon1, pokemon2);
-                break;
-    
-            default:
-                System.out.println("Escolher uma opção inválida!");
-                break;
         }
+
+        Tecnicas escolhida = null;
+        do {
+            int escolha = lerOpcao(1, tecnicas.length);
+            escolhida = tecnicas[escolha - 1];
+
+            if (escolhida == null) {
+                System.out.println("Esse espaço está vazio. Escolha outro ataque.");
+            }
+        } while (escolhida == null);
+
+        return escolhida;
     }
 
-    public void usarTecnica(Tecnicas tecnicaEscolhida, Pokemon pokemon1, Pokemon pokemon2) {
-
-        System.out.println(pokemon1.getNome() + " usou " + tecnicaEscolhida.getNome() + "!!!");
-
-        if (pokemon1.getVelocidade() > pokemon2.getVelocidade()) {
-            calcularDano(tecnicaEscolhida, pokemon1, pokemon2);
-
-            if (pokemon2.getVida() > 0) {
-                calcularDano(tecnicaEscolhida, pokemon2, pokemon1);
+    // A velocidade decide quem ataca primeiro
+    private void executarRonda(Pokemon a, Tecnicas ta, Pokemon b, Tecnicas tb) {
+        if (a.getVelocidade() >= b.getVelocidade()) {
+            atacar(a, ta, b);
+            if (estaVivo(b)) {
+                atacar(b, tb, a);
             }
-
         } else {
-            calcularDano(tecnicaEscolhida, pokemon2, pokemon1);
-
-            if (pokemon2.getVida() > 0) {
-                calcularDano(tecnicaEscolhida, pokemon1, pokemon2);
+            atacar(b, tb, a);
+            if (estaVivo(a)) {
+                atacar(a, ta, b);
             }
-
         }
-
     }
 
-    public void calcularDano(Tecnicas tecnicaEscolhida, Pokemon atacante1, Pokemon atacante2) {
+    private void atacar(Pokemon atacante, Tecnicas tecnica, Pokemon defensor) {
 
-        int dano = atacante1.getAtaque() * tecnicaEscolhida.getDano() / atacante2.getDefesa();
-        atacante2.receberDano(dano);
+        if (tecnica == null) {
+            System.out.println(atacante.getNome() + " não pôde atacar.");
+            return;
+        }
+
+        int dano = Math.max(1, atacante.getAtaque() * tecnica.getDano() / Math.max(1, defensor.getDefesa()));
+
+        boolean vantagemTecnica = false;
+
+        for (int i = 0; i < defensor.getFraqueza().length; i++) {
+            for (int j = 0; j < tecnica.getTipo().length; j++) {
+                if (defensor.getFraqueza()[i] == tecnica.getTipo()[j]) {
+                    dano *= 1.5;
+                    vantagemTecnica = true;
+                }
+            }
+        }
+
+        defensor.receberDano(dano);
+
+        System.out.println(atacante.getNome() + " usou " + tecnica.getNome()
+                + " e causou " + dano + " de dano a " + defensor.getNome() + "!");
+
+        if (vantagemTecnica) {
+            System.out.println("É super eficaz!");
+        }
+
+        System.out.println(defensor.getNome() + " agora tem " + defensor.getVida());
 
     }
 

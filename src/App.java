@@ -2,7 +2,8 @@ import java.util.Scanner;
 import PokemonPackage.PokemonDemo;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         PokemonDemo pokemonDemo = new PokemonDemo();
@@ -13,57 +14,41 @@ public class App {
         System.out.println("JOGADOR 2 POR FAVOR INSIRA O SEU NICKNAME: ");
         String nomePlayer2 = scanner.nextLine();
 
-        Player player1 = new Player(nomePlayer1, args);
-        Player player2 = new Player(nomePlayer2, args);
+        Player player1 = new Player(nomePlayer1);
+        Player player2 = new Player(nomePlayer2);
 
-        player1.escolherEquipa();
-        player2.escolherEquipa();
+        player1.escolherEquipa(scanner);
+        player2.escolherEquipa(scanner);
 
-        JogoMoeda jogar = new JogoMoeda();
+        JogoMoeda jogoMoeda = new JogoMoeda(scanner);
+        Player vencedorMoeda = jogoMoeda.jogar(player1, player2);
+        Player perdedorMoeda = (vencedorMoeda == player1) ? player2 : player1;
 
-        int vencedor = jogar.jogarJogoMoeda(player1, player2);
+        boolean escolheOVencedor = perguntarSimNao(scanner, vencedorMoeda.getNome()
+                + " ganhou o jogo da moeda, deseja escolher o primeiro pokemon a entrar em combate? "
+                + "Por favor digite 'SIM' ou 'NAO'");
 
-        Player primeiroEscolher;
-        Player segundoEscolher;
+        Player primeiroEscolher = escolheOVencedor ? vencedorMoeda : perdedorMoeda;
+        Player segundoEscolher = escolheOVencedor ? perdedorMoeda : vencedorMoeda;
 
-        if (vencedor == 0) {
-
-            System.out.println(player1.getNome()
-                    + " ganhou o jogo da moeda, deseja escolher o primeiro pokemon a entrar em combate? Por favor digite 'SIM' ou 'NAO");
-            String escolha = scanner.nextLine().trim().toLowerCase();
-
-            if (escolha.equals("sim")) {
-                primeiroEscolher = player1;
-                segundoEscolher = player2;
-            } else {
-                primeiroEscolher = player2;
-                segundoEscolher = player1;
-            }
-
-        } else {
-            System.out.println(player2.getNome()
-                    + " ganhou o jogo da moeda, deseja escolher o primeiro pokemon a entrar em combate? Por favor digite 'SIM' ou 'NAO");
-            String escolha = scanner.nextLine().trim().toLowerCase();
-
-            if (escolha.equals("sim")) {
-                primeiroEscolher = player2;
-                segundoEscolher = player1;
-            } else {
-                primeiroEscolher = player1;
-                segundoEscolher = player2;
-            }
-        }
-
-        Combate combate = new Combate();
-/* 
-        System.out.println(primeiroEscolher.getNome() + " escolherá o primeiro Pokémon a entrar em combate.");
-        combate.escolherPokemon(primeiroEscolher);
-
-        System.out.println(segundoEscolher.getNome() + " escolherá o segundo Pokémon a entrar em combate.");
-        combate.escolherPokemon(segundoEscolher);
-*/
+        Combate combate = new Combate(scanner);
         combate.iniciarCombate(primeiroEscolher, segundoEscolher);
 
         scanner.close();
+    }
+
+    private static boolean perguntarSimNao(Scanner scanner, String pergunta) {
+        while (true) {
+            System.out.println(pergunta);
+            String resposta = scanner.nextLine().trim().toLowerCase();
+
+            if (resposta.equals("sim")) {
+                return true;
+            }
+            if (resposta.equals("nao") || resposta.equals("não")) {
+                return false;
+            }
+            System.out.println("Resposta inválida.");
+        }
     }
 }

@@ -1,16 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Iterator;
 
 import PokemonPackage.Pokemon;
 
 public class Player {
+    private static final int TAMANHO_EQUIPA = 1;
     private String nome;
     private Pokemon[] equipa;
 
-    public Player(String nome, String equipa[]) {
+    public Player(String nome) {
         this.nome = nome;
-        this.equipa = new Pokemon[1];
+        this.equipa = new Pokemon[TAMANHO_EQUIPA];
     }
 
     public void setNome(String nome) {
@@ -42,50 +44,51 @@ public class Player {
                 sb.append(pokemon.getNome()).append(" ");
             }
         }
-        return sb.toString();
+        return sb.toString() + "\n";
     }
 
-    public void escolherEquipa() {
-        Scanner scanner = new Scanner(System.in);
+    public void escolherEquipa(Scanner scanner) {
+ 
         List<Pokemon> pokemonsDisponiveis = new ArrayList<>();
-        System.out.println("-------------");
         for (Pokemon pokemon : Pokemon.getTodosPokemons()) {
             pokemonsDisponiveis.add(pokemon);
-            System.out.println(pokemon.getNome());
         }
-        System.out.println("-------------");
-
-        System.out.println("Escolha 6 Pokémons para a equipa de " + nome + ":");
-
+ 
+        System.out.println("Escolha " + TAMANHO_EQUIPA + " Pokémon(s) para a equipa de " + nome + ":");
+ 
         int i = 0;
-   
-        while (i < 1) {
-            System.out.print("Escolha o Pokémon " + (i + 1) + ": ");
-            String pokemonEscolhido = scanner.nextLine();
-
-            boolean pokemonEncontrado = false;
-
+        while (i < TAMANHO_EQUIPA) {
+ 
+            // mostra apenas os que ainda estão disponíveis
+            System.out.println("-------------");
             for (Pokemon pokemon : pokemonsDisponiveis) {
+                System.out.println(pokemon.getNome());
+            }
+            System.out.println("-------------");
+ 
+            System.out.print("Escolha o Pokémon " + (i + 1) + ": ");
+            String pokemonEscolhido = scanner.nextLine().trim();
+ 
+            Pokemon encontrado = null;
+            Iterator<Pokemon> it = pokemonsDisponiveis.iterator();
+            while (it.hasNext()) {
+                Pokemon pokemon = it.next();
                 if (pokemon.getNome().equalsIgnoreCase(pokemonEscolhido)) {
-                    equipa[i] = pokemon;
-                    pokemonsDisponiveis.remove(pokemon);
-                    i++;
-                    System.out.println(pokemon.getNome());
-
-                    pokemonEncontrado = true;
+                    encontrado = pokemon;
+                    it.remove();
                     break;
-
                 }
-
             }
-
-            if (!pokemonEncontrado) {
+ 
+            if (encontrado == null) {
                 System.out.println("Pokémon não encontrado. Tente novamente.");
+            } else {
+                equipa[i] = encontrado;
+                System.out.println("Adicionou " + encontrado.getNome() + " à equipa.");
+                i++;
             }
-
         }
-
-        equipa.toString();
-
+ 
+        System.out.println(this);
     }
 }

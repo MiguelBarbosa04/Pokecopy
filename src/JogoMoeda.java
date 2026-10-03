@@ -1,52 +1,30 @@
 import java.util.Random;
 import java.util.Scanner;
-import java.util.random.*;
 
 public class JogoMoeda {
 
-    private int result;
+    private final Scanner scanner;
+    private final Random random = new Random();
 
-    public int jogarJogoMoeda(Player player1, Player player2) {
-
-        Random randomLado = new Random();
-        result = randomLado.nextInt(2);
-        Scanner scanner = new Scanner(System.in);
-        String resposta;
-        String resposta2;
-
-        do {
-            System.out.println("Jogador 1 escolha um lado da moeda, CARA ou COROA");
-            resposta = scanner.nextLine().toLowerCase();
-            System.out.println("--------------" + resposta + "-------------");
-        } while (!resposta.equals("cara") && !resposta.equals("coroa"));
-
-        if (resposta.equals("cara")) {
-            resposta2 = "coroa";
-        } else {
-            resposta2 = "cara";
-        }
-
-        String resultadoMoeda;
-        if (result == 0) {
-            resultadoMoeda = "cara";
-        } else {
-            resultadoMoeda = "coroa";
-        }
-
-        System.out.println("O resultado do lançamento da moeda é: " + resultadoMoeda);
-
-        if (resultadoMoeda.equals(resposta)) {
-            System.out.println(
-                    "Parabéns jogador 1, ganhou e pode decidir quem escolhe primeiro o pokemon a entrar no combate!");
-
-            return 0;
-        } else {
-            System.out.println(
-                    "Parabéns jogador 2, ganhou e pode decidir quem escolhe primeiro o pokemon a entrar no combate!");
-
-            return 1;
-        }
-
+    public JogoMoeda(Scanner scanner) {
+        this.scanner = scanner;
     }
 
+    public Player jogar(Player player1, Player player2) {
+
+        String escolha;
+        do {
+            System.out.println(player1.getNome() + ", escolha um lado da moeda: CARA ou COROA");
+            escolha = scanner.nextLine().trim().toLowerCase();
+        } while (!escolha.equals("cara") && !escolha.equals("coroa"));
+
+        String resultado = random.nextBoolean() ? "cara" : "coroa";
+        System.out.println("O resultado do lançamento da moeda é: " + resultado);
+
+        Player vencedor = resultado.equals(escolha) ? player1 : player2;
+        System.out.println("Parabéns " + vencedor.getNome()
+                + ", ganhou e pode decidir quem escolhe primeiro o pokemon a entrar no combate!");
+
+        return vencedor;
+    }
 }

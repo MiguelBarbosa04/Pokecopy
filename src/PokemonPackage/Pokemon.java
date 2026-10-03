@@ -116,7 +116,7 @@ public class Pokemon {
         if (this.vida < 0) {
             this.vida = 0;
         }
-        System.out.println(this.nome + " agora tem " + this.vida + " HP restante.");
+        
     }
 
 }
