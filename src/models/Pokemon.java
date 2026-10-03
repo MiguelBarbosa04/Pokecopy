@@ -1,4 +1,4 @@
-package PokemonPackage;
+package models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +19,8 @@ public class Pokemon {
     private Tecnicas[] tecnicas;
 
     private int vidaMaxima;
-
+    private static final String VERMELHO = "\u001B[31m";
+    private static final String RESET = "\u001B[0m";
     private static List<Pokemon> todosPokemons = new ArrayList<>();
 
     public Pokemon(String nome, TiposEnum[] tipo, TiposEnum[] fraqueza, TiposEnum[] resistencia, TiposEnum[] imunidade,
@@ -134,10 +135,19 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon {nome = '" + nome + "', tipo = " + Arrays.toString(tipo) + "', fraqueza = "
-                + Arrays.toString(fraqueza) + "', resistencia = " + Arrays.toString(resistencia) + "', imunidade = "
-                + Arrays.toString(imunidade) + "', ataque = " + ataque + "', defesa = " + defesa + "', vida= " + vida
-                + "}";
+        String texto = "Pokemon {nome = '" + nome + "'"
+                + ", tipo = " + Arrays.toString(tipo)
+                + ", fraqueza = " + Arrays.toString(fraqueza)
+                + ", resistencia = " + Arrays.toString(resistencia)
+                + ", imunidade = " + Arrays.toString(imunidade)
+                + ", ataque = " + ataque
+                + ", defesa = " + defesa
+                + ", vida = " + vida + "}";
+
+        if (vida <= 0) {
+            return VERMELHO + texto + RESET;
+        }
+        return texto;
     }
 
     public void receberDano(int dano) {

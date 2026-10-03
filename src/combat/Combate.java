@@ -1,8 +1,10 @@
+package combat;
 import java.util.Scanner;
 
-import PokemonPackage.Pokemon;
-import PokemonPackage.Tecnicas;
 import enums.TiposEnum;
+import models.Player;
+import models.Pokemon;
+import models.Tecnicas;
 
 public class Combate {
 

@@ -1,5 +1,8 @@
+package coinGame;
 import java.util.Random;
 import java.util.Scanner;
+
+import models.Player;
 
 public class JogoMoeda {
 

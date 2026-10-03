@@ -1,5 +1,9 @@
 import java.util.Scanner;
-import PokemonPackage.PokemonDemo;
+
+import coinGame.JogoMoeda;
+import combat.Combate;
+import data.PokemonDemo;
+import models.Player;
 
 public class App {
 

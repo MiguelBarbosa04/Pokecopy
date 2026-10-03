@@ -1,4 +1,4 @@
-package PokemonPackage;
+package models;
 import java.util.Arrays;
 import enums.TiposEnum;
 

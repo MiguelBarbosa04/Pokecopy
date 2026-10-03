@@ -1,6 +1,8 @@
-package PokemonPackage;
+package data;
 
 import enums.TiposEnum;
+import models.Pokemon;
+import models.Tecnicas;
 
 public class PokemonDemo {
         public void criarPokemons() {
